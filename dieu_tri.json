@@ -1,0 +1,154 @@
+{
+  "benh_loet_chanh": {
+    "nguyen_nhan": "Bệnh loét chanh do vi khuẩn Xanthomonas citri gây ra, phát triển mạnh trong điều kiện ẩm ướt, mưa nhiều và nhiệt độ cao 25-30°C.",
+    "dau_hieu": [
+      "Lá xuất hiện các đốm loét nhỏ màu vàng nâu, có viền vàng nổi bật.",
+      "Đốm bệnh có dạng sần sùi, nổi cao so với bề mặt lá.",
+      "Quả bị loét, xuất hiện các vết nứt nẻ, giảm giá trị thương phẩm.",
+      "Cành non và thân có thể bị loét, gây chết ngọn, ảnh hưởng năng suất."
+    ],
+    "ten_thuoc": ["Kocide 3000", "Copper Hydroxide", "Streptomycin"],
+    "lieu_luong": "20-25ml cho bình 16 lít",
+    "huong_dan_phun": "Phun phòng ngừa trước mùa mưa, lặp lại sau mỗi đợt mưa lớn hoặc 10-14 ngày."
+  },
+  "cam_bi_xi_mu": {
+    "nguyen_nhan": "Bệnh xì mủ (còn gọi là bệnh gummosis) do nấm Phytophthora spp. gây ra, phát triển trong điều kiện ẩm ướt, tưới nước úng gốc, vết thương trên thân cây.",
+    "dau_hieu": [
+      "Thân cây xuất hiện vết thương, tiết ra chất nhựa dính màu vàng nâu hoặc đen.",
+      "Vỏ cây bị nứt nẻ, thối ướt, có mùi hôi.",
+      "Vùng nhiễm bệnh lan rộng dần, có thể bao quanh thân làm cây chết.",
+      "Lá vàng rụng, cây sinh trưởng kém, năng suất giảm."
+    ],
+    "ten_thuoc": ["Ridomil Gold", "Aliette", "Fosetyl-Al"],
+    "lieu_luong": "20-30ml cho bình 16 lít, hoặc bôi trực tiếp lên vết thương",
+    "huong_dan_phun": "Cắt bỏ vỏ bệnh, bôi thuốc trực tiếp lên vết thương. Tránh tưới nước úng gốc, cải thiện thoát nước."
+  },
+  "cam_khoe_manh": {
+    "nguyen_nhan": "",
+    "dau_hieu": [],
+    "ten_thuoc": [],
+    "lieu_luong": "",
+    "huong_dan_phun": "Không cần xử lý, cây cam đang khỏe mạnh. Duy trì chế độ chăm sóc hợp lý."
+  },
+  "chanh_khoe_manh": {
+    "nguyen_nhan": "",
+    "dau_hieu": [],
+    "ten_thuoc": [],
+    "lieu_luong": "",
+    "huong_dan_phun": "Không cần xử lý, cây chanh đang khỏe mạnh. Duy trì chế độ chăm sóc hợp lý."
+  },
+  "chanh_vang_la": {
+    "nguyen_nhan": "Thiếu dinh dưỡng vi lượng (Fe, Zn, Mg, K, N), đất pH không phù hợp (<5.5 hoặc >7.5), tưới nước không hợp lý, hoặc bệnh nấm/virus.",
+    "dau_hieu": [
+      "Thiếu sắt/kẽm: Lá non vàng, gân vẫn xanh.",
+      "Thiếu magie: Lá già vàng hình chữ V, có đốm nâu dọc gân.",
+      "Thiếu kali: Lá cháy khô từ mép lá vào trong.",
+      "Thiếu đạm (nitơ): Lá vàng đều toàn bộ.",
+      "Cây sinh trưởng chậm, lá yếu, năng suất giảm."
+    ],
+    "ten_thuoc": [
+      "Phân chelate sắt Fe-EDTA 13% (thiếu Fe)",
+      "Kẽm sulfat ZnSO4 (thiếu Zn)",
+      "Magie sulfat MgSO4 (thiếu Mg)",
+      "Kali sulfat K2SO4 (thiếu K)",
+      "Phân NPK cao N như 30-10-10 (thiếu N)",
+      "Phân vi lượng tổng hợp (phòng ngừa)"
+    ],
+    "lieu_luong": "Phun lá: Fe-EDTA 2–3g/lít, ZnSO4 2g/lít, MgSO4 5–10g/lít, K2SO4 5g/lít (tùy loại thiếu). Bón gốc: 50–100g phân vi lượng/cây, hoặc 100–200g MgSO4/cây, hoặc 100–150g K2SO4/cây.",
+    "huong_dan_phun": "Bước 1: Quan sát lá để xác định thiếu chất (lá non hay lá già vàng).\nBước 2: Phun đúng loại phân tương ứng, phun 3–4 lần (Fe/Zn: 5–7 ngày/lần; Mg/K: 10–14 ngày/lần).\nBước 3: Bón gốc bổ sung phân hữu cơ và vi lượng.\nBước 4: Kiểm tra pH đất (mục tiêu 6.0–7.0), điều chỉnh nếu đất quá chua hoặc quá kiềm.\nBước 5: Cải thiện tưới tiêu, tránh úng kéo dài."
+  },
+  "lua_bi_nam": {
+    "nguyen_nhan": "Bệnh do các loại nấm như Pyricularia oryzae (gây bệnh đạo ôn), Rhizoctonia solani (gây bệnh khô vằn) phát triển mạnh trong điều kiện ẩm độ cao, ruộng rậm rạp, bón thừa đạm.",
+    "dau_hieu": [
+      "Đạo ôn lá: Vết bệnh hình thoi hoặc bầu dục, ở giữa có màu xám trắng, viền nâu đỏ.",
+      "Khô vằn: Xuất hiện vết sọc dài màu nâu, có hình dạng vằn vèo trên bẹ lá và thân lúa.",
+      "Bệnh thường phát triển nhanh trong điều kiện ruộng ẩm thấp, rậm rạp và bón nhiều đạm."
+    ],
+    "ten_thuoc": ["Đạo ôn: Tilt Super", "Score 250EC", "Khô vằn: Validamycin"],
+    "lieu_luong": "15-20ml cho bình 16 lít",
+    "huong_dan_phun": "Phun sớm khi mới xuất hiện triệu chứng, đảm bảo ướt đều toàn bộ tán lá và cổ bông."
+  },
+  "lua_binh_thuong": {
+    "nguyen_nhan": "",
+    "dau_hieu": [],
+    "ten_thuoc": [],
+    "lieu_luong": "",
+    "huong_dan_phun": "Không cần xử lý, cây lúa đang khỏe mạnh. Tiếp tục theo dõi và chăm sóc thường xuyên."
+  },
+  "lua_sau_cuon_la": {
+    "nguyen_nhan": "Bệnh do ấu trùng của loài sâu cuốn lá nhỏ (Cnaphalocrocis medinalis) gây ra. Giai đoạn gây hại: Ấu trùng gây hại mạnh nhất ở giai đoạn lúa đẻ nhánh đến làm đòng.",
+    "dau_hieu": [
+  "Lá bị cuốn dọc thành ống do ấu trùng nhả tơ và ăn phần thịt lá.",
+  "Xuất hiện các vệt trắng dài trên lá, giảm khả năng quang hợp.",
+  "Lá cuốn nhiều làm cây sinh trưởng kém, năng suất giảm.",
+  "Sâu trưởng thành là bướm nhỏ, đẻ trứng trên lá vào ban đêm.",
+  "Ấu trùng màu xanh, đầu vàng nâu; vòng đời 3–4 tuần.",
+  "Phát triển mạnh khi thời tiết nóng ẩm và ruộng bón thừa đạm."
+],
+    "ten_thuoc": ["Virtako", "Sago Super", "Rynaxypyr"],
+    "lieu_luong": "10-15ml cho bình 16 lít",
+    "huong_dan_phun": "Phun vào sáng sớm hoặc chiều mát, không phun khi trời mưa."
+  },
+  "lua_sau_duc_than": {
+    "nguyen_nhan": "Sâu đục thân là ấu trùng của các loài bướm như Scirpophaga incertulas. Sâu non sau khi nở sẽ chui vào thân cây lúa và đục bên trong làm cản trở sự sinh trưởng bình thường của cây.",
+    "dau_hieu": [
+      "Trên lúa giai đoạn đẻ nhánh: cây bị hại có hiện tượng héo lá, lá vẫn xanh nhưng không phục hồi (gọi là bông héo, hay 'tép rỗng').",
+      "Trên lúa giai đoạn làm đòng - trổ: sâu đục vào trong thân gây hiện tượng bông trắng (bông lúa không trổ hoặc trổ nhưng không có hạt).",
+      "Khi rút thân lúa ra sẽ thấy bên trong thân bị rỗng do sâu ăn, có thể thấy phân sâu hoặc con sâu non màu vàng ngà."
+    ],
+    "ten_thuoc": ["Radiant", "Proclaim", "Abamectin"],
+    "lieu_luong": "8-10ml cho bình 16 lít",
+    "huong_dan_phun": "Phun khi sâu mới xuất hiện, tập trung vào lá non."
+  },
+  "mia_gi_sat": {
+    "nguyen_nhan": "Bệnh gỉ sắt do nấm Puccinia kuehnii gây ra, phát triển mạnh trong điều kiện ẩm độ cao (trên 80%), nhiệt độ 20-28°C, và gió mạnh giúp bào tử lan truyền.",
+    "dau_hieu": [
+      "Lá xuất hiện các đốm nhỏ màu vàng cam hoặc nâu đỏ, giống màu gỉ sắt.",
+      "Mặt dưới lá có các đốm phấn màu vàng cam (bào tử nấm).",
+      "Lá bị nhiễm nặng sẽ khô, héo và chết sớm.",
+      "Giảm khả năng quang hợp, cây sinh trưởng kém, năng suất giảm đến 20-40%."
+    ],
+    "ten_thuoc": ["Tilt 250EC", "Folicur 250EW", "Azoxystrobin"],
+    "lieu_luong": "15-20ml cho bình 16 lít",
+    "huong_dan_phun": "Phun phòng ngừa khi thời tiết ẩm ướt, lặp lại mỗi 14 ngày nếu bệnh xuất hiện."
+  },
+  "mia_khoe_manh": {
+    "nguyen_nhan": "",
+    "dau_hieu": [],
+    "ten_thuoc": [],
+    "lieu_luong": "",
+    "huong_dan_phun": "Không cần xử lý, cây mía đang khỏe mạnh. Duy trì chế độ chăm sóc và bón phân hợp lý."
+  },
+  "mia_thoi_do": {
+    "nguyen_nhan": "Bệnh thối đỏ do nấm Colletotrichum falcatum gây ra, xâm nhập qua vết thương do côn trùng đục thân hoặc tác động cơ học. Phát triển trong điều kiện ẩm ướt và cây bị stress.",
+    "dau_hieu": [
+      "Các vệt đỏ xuất hiện dọc theo gân chính của lá.",
+      "Ban đầu là những đốm nhỏ màu đỏ li ti. Sau đó, các đốm này lan rộng ra thành những vệt màu đỏ rực hoặc đỏ sẫm kéo dài dọc theo gân lá.",
+      "Khi bệnh nặng, ở giữa vệt đỏ thường có màu trắng xám, bên trên có thể xuất hiện các hạt nhỏ màu đen (là các ổ bào tử nấm).",
+      "Cây sinh trưởng kém và có thể chết.",
+      "Năng suất giảm mạnh, hàm lượng đường thấp, không đạt yêu cầu thu hoạch."
+    ],
+    "ten_thuoc": ["Carbendazim", "Benomyl", "Mancozeb"],
+    "lieu_luong": "20-30ml cho bình 16 lít",
+    "huong_dan_phun": "Xử lý giống trước khi trồng bằng cách ngâm trong dung dịch thuốc. Kiểm soát sâu đục thân, tránh làm tổn thương cây."
+  },
+  "ngo_chay_la": {
+    "nguyen_nhan": "Bệnh cháy lá ngô do nấm Exserohilum turcicum (syn. Helminthosporium turcicum) gây ra, phát triển mạnh trong điều kiện ẩm độ cao, nhiệt độ 18-27°C và mưa nhiều.",
+    "dau_hieu": [
+      "Lá xuất hiện các vết bệnh dài hình thoi hoặc elip, màu xám đến nâu xám.",
+      "Vết bệnh có viền màu nâu sẫm hoặc đỏ nâu.",
+      "Vết bệnh lan rộng và có thể chiếm phần lớn diện tích lá, làm lá khô và chết.",
+      "Ảnh hưởng nghiêm trọng đến quá trình quang hợp, giảm năng suất từ 15-50%."
+    ],
+    "ten_thuoc": ["Tilt 250EC", "Azoxystrobin", "Mancozeb"],
+    "lieu_luong": "15-20ml cho bình 16 lít",
+    "huong_dan_phun": "Phun phòng ngừa khi thời tiết ẩm ướt, lặp lại sau 10-14 ngày nếu bệnh tiếp tục phát triển."
+  },
+  "ngo_khoe_manh": {
+    "nguyen_nhan": "",
+    "dau_hieu": [],
+    "ten_thuoc": [],
+    "lieu_luong": "",
+    "huong_dan_phun": "Không cần xử lý, cây ngô đang khỏe mạnh. Duy trì chế độ chăm sóc và theo dõi thường xuyên."
+  }
+}

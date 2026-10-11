@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cây Khỏe AI – Chẩn đoán bệnh cây trồng</title>
+    <meta name="description" content="Cây Khỏe AI: chụp một tấm ảnh – biết ngay bệnh cây. AI nhận diện 14 trạng thái trên lúa, ngô, mía, cam, chanh.">
+    <meta name="theme-color" content="#14532D">
+    <link rel="icon" type="image/png" href="img/icon-64.png">
+    <link rel="apple-touch-icon" href="img/icon-192.png">
+    <link rel="manifest" href="manifest.webmanifest">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        .chat-wrapper {
+            width: 100%;
+            max-width: 1200px;
+            height: 95vh;
+            margin: 20px;
+            background: #ffffff;
+            display: flex;
+            flex-direction: column;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .chat-header {
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+            color: #ffffff;
+            padding: 24px 32px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .chat-header h2 {
+            font-size: 22px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .clear-btn {
+            background: rgba(255, 255, 255, 0.9);
+            color: #000000;
+            border: 2px solid #f093fb;
+            padding: 10px 20px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .clear-btn:hover {
+            background: rgba(240, 147, 251, 0.2);
+            border-color: #ec4899;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(240, 147, 251, 0.4);
+        }
+
+        .chat-box {
+            flex: 1;
+            overflow-y: auto;
+            padding: 0;
+            background: linear-gradient(to bottom, #f8f9fa 0%, #ffffff 100%);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .chat-box::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        .chat-box::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+
+        .chat-box::-webkit-scrollbar-thumb {
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+            border-radius: 10px;
+        }
+
+        .chat-box::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(135deg, #38ef7d 0%, #11998e 100%);
+        }
+
+        .message {
+            display: flex;
+            padding: 28px;
+            animation: fadeInSlide 0.4s ease;
+        }
+
+        @keyframes fadeInSlide {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .message.user {
+            background: transparent;
+            justify-content: center;
+        }
+
+        .message.bot {
+            background: rgba(17, 153, 142, 0.03);
+            justify-content: center;
+        }
+
+        .message-content {
+            max-width: 100%;
+            width: 100%;
+        }
+
+        .message.user .message-content {
+            justify-content: center;
+        }
+
+        .message-group {
+            display: flex;
+            gap: 24px;
+            align-items: flex-start;
+            max-width: 1180px; /* tăng để khung trả lời rộng hơn */
+            width: 100%;
+            margin: 0 auto;
+        }
+
+        .chat-image {
+            max-width: 340px;   /* thu nhỏ nhẹ để nội dung rộng hơn */
+            max-height: 380px;
+            min-width: 280px;
+            border-radius: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: block;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+            border: 3px solid #ffffff;
+            flex-shrink: 0;
+            object-fit: cover;
+        }
+
+        .chat-image:hover {
+            transform: scale(1.03);
+            box-shadow: 0 12px 32px rgba(17, 153, 142, 0.3);
+        }
+
+        .diagnosis-content {
+            flex: 1;
+            min-width: 400px;
+            background: #e9d5ff;
+            padding: 24px 28px;
+            border-radius: 16px;
+            box-shadow: 0 8px 24px rgba(147, 51, 234, 0.2),
+                        0 0 40px rgba(168, 85, 247, 0.15),
+                        inset 0 1px 0 rgba(255, 255, 255, 0.5);
+            border: 1px solid #d8b4fe;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .diagnosis-content::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            animation: shimmer 3s infinite;
+        }
+
+        @keyframes shimmer {
+            0%, 100% {
+                left: -100%;
+            }
+            50% {
+                left: 100%;
+            }
+        }
+
+        pre {
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+            font-size: 16px;
+            line-height: 1.8;
+            margin: 0;
+            color: #2d3748;
+            font-weight: 500;
+            letter-spacing: 0.3px;
+            -webkit-font-smoothing: antialiased;
+            text-rendering: optimizeLegibility;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 8px 16px;
+            border-radius: 25px;
+            font-size: 13px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+            animation: pulse 2s infinite;
+            border: 2px solid rgba(0, 0, 0, 0.1);
+            position: relative;
+            z-index: 1;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+        }
+
+        .status-model {
+            background: linear-gradient(135deg, #10a37f 0%, #0d8c6c 100%);
+            color: white;
+            box-shadow: 0 4px 16px rgba(16, 163, 127, 0.5);
+        }
+
+        .status-ai {
+            background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+            color: #1f2937;
+            box-shadow: 0 4px 16px rgba(251, 191, 36, 0.5);
+        }
+
+        .status-error {
+            background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+            color: white;
+            box-shadow: 0 4px 16px rgba(239, 68, 68, 0.5);
+        }
+
+        .chat-form {
+            padding: 12px 24px;  /* giảm padding để khoảng trắng dưới hẹp bớt */
+            background: #ffffff;
+            border-top: 2px solid #e5e7eb;
+            display: flex;
+            gap: 12px;          /* giảm khoảng cách giữa các phần */
+            align-items: center;
+            max-width: 900px;
+            margin: 0 auto;
+            width: 100%;
+            box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.05);
+        }
+
+        .file-input-wrapper {
+            position: relative;
+            flex: 1;
+        }
+
+        .file-input-wrapper input[type="file"] {
+            position: absolute;
+            opacity: 0;
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+            z-index: 2;
+        }
+
+        .file-input-label {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 14px 20px;
+            background: linear-gradient(to right, #f8f9fa, #ffffff);
+            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 15px;
+            font-weight: 600;
+            color: #4b5563;
+        }
+
+        .file-input-label:hover {
+            background: linear-gradient(to right, #f1f3f5, #f8f9fa);
+            border-color: #11998e;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(17, 153, 142, 0.2);
+        }
+
+        .file-input-label::before {
+            content: "📷";
+            font-size: 20px;
+        }
+
+        button[type="submit"] {
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+            color: #000000;
+            border: none;
+            padding: 14px 32px;
+            border-radius: 12px;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 16px rgba(17, 153, 142, 0.4);
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        button[type="submit"]:hover {
+            background: linear-gradient(135deg, #38ef7d 0%, #11998e 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(17, 153, 142, 0.5);
+        }
+
+        .direct-cam-btn {
+            background: #ffffff;
+            color: #0f766e;
+            border: 2px solid #0f766e;
+            padding: 10px 18px;
+            border-radius: 12px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            white-space: nowrap;
+        }
+
+        .direct-cam-btn:hover {
+            background: #ecfdf5;
+            transform: translateY(-1px);
+            box-shadow: 0 3px 8px rgba(16, 185, 129, 0.3);
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 100px 40px;
+            color: #6b7280;
+        }
+
+        .empty-state::before {
+            content: "🌿";
+            font-size: 80px;
+            display: block;
+            margin-bottom: 24px;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .empty-state h3 {
+            font-size: 32px;
+            margin-bottom: 16px;
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 800;
+            letter-spacing: 1px;
+        }
+
+        .empty-state p {
+            font-size: 17px;
+            line-height: 1.8;
+            max-width: 700px;
+            margin: 0 auto;
+            color: #4b5563;
+            font-weight: 500;
+        }
+
+        .confidence-wrapper {
+            position: relative;
+            z-index: 1;
+            margin-bottom: 16px;
+        }
+
+        .confidence-label {
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 4px;
+            color: #4b5563;
+        }
+
+        .confidence-bar {
+            width: 100%;
+            height: 10px;
+            border-radius: 999px;
+            background: linear-gradient(90deg, #ef4444, #f59e0b, #10b981);
+            box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.15);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .confidence-bar-fill {
+            position: absolute;
+            top: 0;
+            right: 0;
+            height: 100%;
+            width: calc(100% - var(--confidence-percent, 0%));
+            background: rgba(255, 255, 255, 0.7);
+            transition: width 0.4s ease;
+            border-radius: 999px;
+        }
+
+        .pdf-btn {
+            margin-top: 16px;
+            padding: 10px 18px;
+            border-radius: 999px;
+            border: none;
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+            color: #ffffff;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(129, 140, 248, 0.5);
+            letter-spacing: 0.4px;
+            text-transform: uppercase;
+            position: relative;
+            z-index: 1;
+            transition: all 0.2s ease;
+        }
+
+        .pdf-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 6px 16px rgba(129, 140, 248, 0.6);
+        }
+
+        .keep-inline {
+            white-space: nowrap;
+        }
+
+        /* KHUNG HƯỚNG DẪN NHỎ BÊN CẠNH NÚT GỬI */
+        .help-box {
+            width: 210px;
+            background: rgba(255,255,255,0.96);
+            border-radius: 12px;
+            border: 1px solid #e5e7eb;
+            box-shadow: 0 6px 18px rgba(0,0,0,0.16);
+            padding: 10px 12px;
+            font-size: 12px;
+            color: #374151;
+            margin-left: 8px;
+        }
+
+        .help-box-title {
+            font-weight: 700;
+            font-size: 12px;
+            margin-bottom: 6px;
+            color: #0f766e;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .help-box-title span {
+            font-size: 14px;
+        }
+
+        .help-box ul {
+            padding-left: 16px;
+            margin: 0;
+        }
+
+        .help-box li {
+            margin-bottom: 3px;
+        }
+
+        .help-box-note {
+            margin-top: 6px;
+            font-size: 11px;
+            color: #6b7280;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                align-items: stretch;
+            }
+
+            .chat-wrapper {
+                height: 100vh;
+                margin: 0;
+                border-radius: 0;
+                max-width: 100%;
+            }
+
+            .chat-header {
+                padding: 14px 14px;
+                gap: 10px;
+                flex-wrap: wrap;
+                justify-content: space-between;
+            }
+
+            .chat-header h2 {
+                font-size: 16px;
+                line-height: 1.25;
+                letter-spacing: 0.2px;
+                flex: 1 1 auto;
+                min-width: 220px;
+            }
+
+            .clear-btn {
+                padding: 8px 12px;
+                font-size: 12px;
+                border-radius: 10px;
+            }
+
+            .message {
+                padding: 14px;
+            }
+
+            .message-group {
+                flex-direction: column;
+                gap: 12px;
+                max-width: 100%;
+            }
+
+            .chat-image {
+                max-width: 100%;
+                min-width: unset;
+                width: 100%;
+                max-height: 360px;
+            }
+
+            .diagnosis-content {
+                min-width: unset;
+                padding: 16px 16px;
+                border-radius: 14px;
+            }
+
+            pre {
+                font-size: 14px;
+                line-height: 1.65;
+                letter-spacing: 0.15px;
+            }
+
+            .status-badge {
+                padding: 7px 12px;
+                font-size: 12px;
+                margin-bottom: 12px;
+            }
+
+            .chat-form {
+                padding: 10px 12px;
+                flex-wrap: wrap;
+                flex-direction: column;
+                align-items: stretch;
+                gap: 10px;
+                max-width: 100%;
+            }
+
+            .file-input-label {
+                padding: 12px 14px;
+                font-size: 14px;
+                border-radius: 12px;
+            }
+
+            button[type="submit"] {
+                width: 100%;
+                padding: 12px 16px;
+                font-size: 14px;
+                border-radius: 12px;
+            }
+
+            .direct-cam-btn {
+                margin-top: 8px;
+                width: 100%;
+            }
+
+            .empty-state {
+                padding: 44px 16px;
+            }
+
+            .empty-state::before {
+                font-size: 60px;
+                margin-bottom: 16px;
+            }
+
+            .empty-state h3 {
+                font-size: 20px;
+                margin-bottom: 10px;
+            }
+
+            .empty-state p {
+                font-size: 15px;
+                line-height: 1.65;
+            }
+
+            .help-box {
+                width: 100%;
+                margin-left: 0;
+                margin-top: 0;
+                padding: 10px 12px;
+            }
+
+            .pdf-btn {
+                width: 100%;
+                padding: 11px 14px;
+                font-size: 12px;
+            }
+
+            /* Làm thanh cuộn mảnh hơn trên mobile */
+            .chat-box::-webkit-scrollbar {
+                width: 7px;
+            }
+        }
+
+        /* Mobile nhỏ hơn (điện thoại hẹp) */
+        @media (max-width: 420px) {
+            .chat-header h2 {
+                font-size: 15px;
+                min-width: 180px;
+            }
+
+            .clear-btn {
+                padding: 7px 10px;
+                font-size: 11px;
+            }
+
+            .message {
+                padding: 12px;
+            }
+
+            .diagnosis-content {
+                padding: 14px 14px;
+            }
+
+            pre {
+                font-size: 13.5px;
+                line-height: 1.6;
+            }
+
+            .file-input-label::before {
+                font-size: 18px;
+            }
+        }    
+        .chat-header h2 { display:flex; align-items:center; gap:12px; }
+        .brand-logo { width:44px; height:44px; border-radius:11px; box-shadow:0 2px 8px rgba(0,0,0,.25); flex-shrink:0; }
+        .header-actions { display:flex; gap:8px; align-items:center; }
+        .model-status { font-size:13px; font-weight:600; color:#065f46; background:#ecfdf5; border:1px solid #a7f3d0;
+            padding:8px 14px; text-align:center; }
+        .model-status.error { color:#991b1b; background:#fef2f2; border-color:#fecaca; }
+        .model-status.ready { color:#065f46; }
+        .progress { height:6px; background:#d1fae5; border-radius:999px; overflow:hidden; margin:6px auto 0; max-width:420px; }
+        .progress > div { height:100%; width:0%; background:linear-gradient(90deg,#11998e,#38ef7d); transition:width .2s; }
+        .thinking { display:flex; align-items:center; gap:10px; justify-content:center; padding:24px; color:#0f766e; font-weight:600; }
+        .spinner { width:22px; height:22px; border:3px solid #a7f3d0; border-top-color:#0f766e; border-radius:50%; animation:spin .8s linear infinite; }
+        @keyframes spin { to { transform:rotate(360deg); } }
+        .privacy-note { font-size:13px; color:#6b7280; margin-top:14px; }
+        button[disabled] { opacity:.55; cursor:not-allowed; }
+        .chat-form .actions { display:flex; gap:10px; align-items:center; }
+        @media (max-width: 768px) {
+            .brand-logo { width:34px; height:34px; border-radius:9px; }
+            .chat-form .actions { flex-direction:row; align-items:stretch; gap:10px; }
+            .chat-form .actions > button { flex:1; width:auto; margin-top:0; }
+        }
+    </style>
+</head>
+<body>
+<div class="chat-wrapper">
+    <div class="chat-header">
+        <h2><img src="img/icon-192.png" class="brand-logo" alt="Logo Cây Khỏe AI">CÂY KHỎE AI – TƯ VẤN, XỬ LÝ BỆNH TRÊN CÂY TRỒNG</h2>
+        <div class="header-actions">
+            <button type="button" id="clearBtn" class="clear-btn">🗑️ Xóa lịch sử</button>
+        </div>
+    </div>
+
+    <div id="modelStatus" class="model-status">
+        <span id="modelStatusText">Đang tải mô hình AI…</span>
+        <div class="progress"><div id="modelProgress"></div></div>
+    </div>
+
+    <div id="chat-box" class="chat-box">
+        <div class="empty-state" id="emptyState">
+            <h3>CHÀO MỪNG ĐẾN VỚI CÂY KHỎE AI!</h3>
+            <p>
+                Gửi ảnh để nhận chẩn đoán bệnh tự động với độ chính xác cao.<br>
+                <strong>
+                    Hệ thống sử dụng AI để phát hiện 14 trạng thái bệnh/khỏe phổ biến trên 5 loại cây trồng:
+                    cam, chanh, lúa, mía, ngô.
+                </strong>
+            </p>
+            <p class="privacy-note">🔒 Ảnh được AI phân tích ngay trên điện thoại/máy tính của bạn, không gửi lên mạng.</p>
+        </div>
+    </div>
+
+    <form id="chatForm" class="chat-form">
+        <div class="file-input-wrapper">
+            <input type="file" name="file" accept="image/*" id="fileInput">
+            <label for="fileInput" class="file-input-label">
+                <span id="fileName">Ảnh cây trồng (ảnh có sẵn hoặc chụp trực tiếp)</span>
+            </label>
+        </div>
+        <div class="actions">
+            <button type="submit" id="sendBtn" disabled>🚀 Gửi</button>
+            <button type="button" class="direct-cam-btn" id="camBtn">📸 Chụp ảnh</button>
+            <input type="file" accept="image/*" capture="environment" id="camInput" hidden>
+        </div>
+
+        <div class="help-box">
+            <div class="help-box-title">
+                <span>📌</span> Hướng dẫn chọn ảnh
+            </div>
+            <ul>
+                <li>Cam: chụp rõ <strong>thân cây</strong></li>
+                <li>Chanh: chụp <strong>lá hoặc quả</strong></li>
+                <li>Lúa: chụp <strong>lá hoặc thân</strong></li>
+                <li>Ngô &amp; Mía: chụp <strong>lá</strong></li>
+            </ul>
+        </div>
+    </form>
+</div>
+
+<script src="vendor/tf.min.js"></script>
+<script src="vendor/html2pdf.bundle.min.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
