@@ -28,8 +28,8 @@
   // ================== PHẦN TỬ GIAO DIỆN ==================
   const $ = (id) => document.getElementById(id);
   const chatBox = $('chat-box'), emptyState = $('emptyState');
-  const fileInput = $('fileInput'), fileName = $('fileName'), camInput = $('camInput');
-  const sendBtn = $('sendBtn'), camBtn = $('camBtn'), form = $('chatForm');
+  const fileInput = $('fileInput'), fileName = $('fileName');
+  const sendBtn = $('sendBtn'), form = $('chatForm');
   const statusBox = $('modelStatus'), statusText = $('modelStatusText'), progressBar = $('modelProgress');
 
   let mo_hinh = null, thong_tin_benh = {}, busy = false;
@@ -300,7 +300,7 @@
       thinking.remove();
       showError('Không đọc được ảnh này. Hãy chọn ảnh định dạng JPG hoặc PNG, chụp rõ nét, rồi thử lại.');
     } finally {
-      busy = false; fileInput.value = ''; camInput.value = '';
+      busy = false; fileInput.value = '';
       fileName.textContent = 'Ảnh cây trồng (ảnh có sẵn hoặc chụp trực tiếp)';
       updateSendState();
     }
@@ -308,7 +308,6 @@
 
   function updateSendState() {
     sendBtn.disabled = !mo_hinh || busy || !(fileInput.files && fileInput.files.length);
-    camBtn.disabled = !mo_hinh || busy;
   }
 
   fileInput.addEventListener('change', (e) => {
@@ -316,8 +315,6 @@
     updateSendState();
   });
   form.addEventListener('submit', (e) => { e.preventDefault(); diagnose(fileInput.files[0]); });
-  camBtn.addEventListener('click', () => camInput.click());
-  camInput.addEventListener('change', (e) => { if (e.target.files.length) diagnose(e.target.files[0]); });
   $('clearBtn').addEventListener('click', () => {
     try { localStorage.removeItem(HISTORY_KEY); } catch (e) { /* bỏ qua */ }
     chatBox.querySelectorAll('.message, .thinking').forEach((m) => m.remove());
